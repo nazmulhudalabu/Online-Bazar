@@ -1950,3 +1950,543 @@ justify-content:center;
 
     min-height:50px;
 }
+
+/*==========================================
+            Login Page
+==========================================*/
+
+.login-section{
+
+    padding:100px 0;
+
+    background:#F8FCF5;
+
+    min-height:80vh;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.login-header{
+
+    background:#fff;
+
+    padding:20px 0;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+
+}
+
+.login-card{
+
+    background:#fff;
+
+    padding:45px;
+
+    border-radius:20px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+}
+
+.login-card h2{
+
+    font-size:36px;
+
+    font-weight:700;
+
+    color:#017730;
+
+    margin-bottom:10px;
+
+}
+
+.login-card p{
+
+    color:#666;
+
+}
+
+.login-card label{
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+.login-card .form-control{
+
+    height:55px;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+    padding:0 15px;
+
+    transition:.3s;
+
+}
+
+.login-card .form-control:focus{
+
+    border-color:#017730;
+
+    box-shadow:0 0 0 .15rem rgba(1,119,48,.15);
+
+}
+
+.password-box{
+
+    position:relative;
+
+}
+
+.password-box span{
+
+    position:absolute;
+
+    right:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    color:#777;
+
+    font-size:18px;
+
+}
+
+.forgot-link{
+
+    color:#017730;
+
+    text-decoration:none;
+
+    font-weight:500;
+
+}
+
+.forgot-link:hover{
+
+    text-decoration:underline;
+
+}
+
+.register-link{
+
+    color:#017730;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+.register-link:hover{
+
+    color:#014f22;
+
+}
+
+.btn-green{
+
+    background:#017730;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:12px;
+
+    height:55px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-green:hover{
+
+    background:#014f22;
+
+    color:#fff;
+
+}
+
+.login-card hr{
+
+    margin:30px 0;
+
+}
+
+@media(max-width:768px){
+
+    .login-card{
+
+        padding:30px 25px;
+
+    }
+
+    .login-card h2{
+
+        font-size:28px;
+
+    }
+
+}
+
+/* Mobile Top Row */
+
+.mobile-top{
+
+    display:none;
+
+}
+
+@media (max-width:991px){
+
+    .mobile-top{
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        padding:15px 0;
+
+    }
+
+    .desktop-header .logo{
+
+        display:none;
+
+    }
+
+    .main-header .container > .row > .col-lg-2{
+
+        display:none;
+
+    }
+
+    .mobile-top .logo{
+
+        width:120px;
+
+    }
+
+    .navbar-toggler{
+
+        border:1px solid #ddd;
+
+        padding:8px 10px;
+
+    }
+
+    .navbar > .container > .navbar-toggler{
+
+        display:none;
+
+    }
+
+    .main-header{
+
+        padding-top:12px;
+
+    }
+
+    .main-header .search-box{
+
+        margin-top:16px;
+
+    }
+
+}
+
+/*==========================================
+            Cart Page
+==========================================*/
+
+.cart-section{
+
+    padding:80px 0;
+
+    background:#f8f9fa;
+
+}
+
+/* Cart Table */
+
+.cart-table{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.cart-table table{
+
+    margin-bottom:0;
+
+}
+
+.cart-table thead th{
+
+    font-weight:600;
+
+    border-bottom:2px solid #eee;
+
+    padding-bottom:15px;
+
+}
+
+.cart-table td{
+
+    vertical-align:middle;
+
+    padding:20px 10px;
+
+}
+
+/* Product */
+
+.cart-product{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.cart-product img{
+
+    width:90px;
+
+    height:90px;
+
+    object-fit:contain;
+
+    background:#f8f8f8;
+
+    border-radius:15px;
+
+    padding:10px;
+
+}
+
+.cart-product h5{
+
+    font-size:18px;
+
+    margin-bottom:5px;
+
+    font-family:'Hind Siliguri',sans-serif;
+
+}
+
+.cart-product small{
+
+    color:#777;
+
+}
+
+/* Quantity */
+
+.quantity-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.qty-btn{
+
+    width:35px;
+
+    height:35px;
+
+    border:none;
+
+    background:#017730;
+
+    color:#fff;
+
+    border-radius:8px;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.qty-btn:hover{
+
+    background:#014f22;
+
+}
+
+.quantity-box input{
+
+    width:50px;
+
+    text-align:center;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    height:35px;
+
+}
+
+/* Remove */
+
+.remove-btn{
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#dc3545;
+
+    color:#fff;
+
+    transition:.3s;
+
+}
+
+.remove-btn:hover{
+
+    background:#bb2d3b;
+
+}
+
+/* Summary */
+
+.cart-summary{
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    position:sticky;
+
+    top:100px;
+
+}
+
+.cart-summary h3{
+
+    margin-bottom:25px;
+
+    color:#017730;
+
+    font-weight:700;
+
+}
+
+.summary-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:18px;
+
+    font-size:16px;
+
+}
+
+.summary-item.total{
+
+    font-size:22px;
+
+    color:#017730;
+
+    font-weight:700;
+
+}
+
+.cart-summary hr{
+
+    margin:20px 0;
+
+}
+
+/* Coupon */
+
+.coupon-box .form-control{
+
+    height:50px;
+
+    border-radius:10px;
+
+}
+
+/* Mobile */
+
+@media(max-width:991px){
+
+    .cart-summary{
+
+        margin-top:30px;
+
+        position:static;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .cart-product{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .cart-product img{
+
+        width:70px;
+
+        height:70px;
+
+    }
+
+    .cart-table{
+
+        overflow-x:auto;
+
+    }
+
+}
