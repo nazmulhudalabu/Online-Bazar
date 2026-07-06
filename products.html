@@ -324,8 +324,9 @@
                         </h5>
 
                         <input type="text"
+                               id="productSearch"
                                class="form-control"
-                               placeholder="Search Product...">
+                               placeholder="Search by product, category, or benefit...">
 
                     </div>
 
@@ -343,7 +344,22 @@
 
                             <li>
 
-                                <a href="#">
+                                <a href="#"
+                                   class="active"
+                                   data-category="All">
+
+                                    All Products
+
+                                    <span>(6)</span>
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="#"
+                                   data-category="Mustard Oil">
 
                                     Mustard Oil
 
@@ -355,7 +371,8 @@
 
                             <li>
 
-                                <a href="#">
+                                <a href="#"
+                                   data-category="Honey">
 
                                     Honey
 
@@ -367,7 +384,8 @@
 
                             <li>
 
-                                <a href="#">
+                                <a href="#"
+                                   data-category="Turmeric">
 
                                     Turmeric
 
@@ -379,7 +397,8 @@
 
                             <li>
 
-                                <a href="#">
+                                <a href="#"
+                                   data-category="Dates">
 
                                     Dates
 
@@ -391,7 +410,8 @@
 
                             <li>
 
-                                <a href="#">
+                                <a href="#"
+                                   data-category="Masala">
 
                                     Masala
 
@@ -403,7 +423,8 @@
 
                             <li>
 
-                                <a href="#">
+                                <a href="#"
+                                   data-category="Nuts">
 
                                     Rice
 
@@ -428,7 +449,12 @@
                         </h5>
 
                         <input type="range"
-                               class="form-range">
+                               class="form-range"
+                               id="priceRange"
+                               min="100"
+                               max="1500"
+                               step="50"
+                               value="1500">
 
                         <div class="d-flex justify-content-between">
 
@@ -468,7 +494,9 @@
 
                     </div>
 
-                    <button class="btn btn-green w-100 mt-4">
+                    <button class="btn btn-green w-100 mt-4"
+                            type="button"
+                            id="applyFilter">
 
                         Apply Filter
 
@@ -490,7 +518,12 @@
 
         </h2>
 
-        <select class="form-select w-auto">
+        <div class="products-toolbar">
+
+        <span id="resultCount">6 products found</span>
+
+        <select class="form-select w-auto"
+                id="productSort">
 
             <option>Default Sorting</option>
 
@@ -502,11 +535,13 @@
 
         </select>
 
+        </div>
+
     </div>
 
     <!-- Product Grid -->
 
-    <div class="row g-4">
+    <div class="row g-4" id="productGrid">
 
         <!-- =======================
                 Product 1
@@ -1356,6 +1391,26 @@
         <!-- Product 6 -->
 
     </div>
+
+    <nav class="mt-5" aria-label="Products pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 
 </div>
 

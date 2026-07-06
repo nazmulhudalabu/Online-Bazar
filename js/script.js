@@ -1,11 +1,93 @@
-/* ==========================================
+﻿/* ==========================================
         KHATI SODAY
         script.js
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
     const CART_KEY = "khatiSodayCart";
+    const CART_TOUCHED_KEY = "khatiSodayCartTouched";
+    const ORDER_KEY = "khatiSodayLastOrder";
     const DELIVERY_CHARGE = 80;
+    const productCatalog = [
+        {
+            name: "Pure Mustard Oil",
+            localName: "Cold Pressed Mustard Oil",
+            category: "Mustard Oil",
+            description: "Cold pressed in small batches with the sharp aroma families expect from real mustard oil.",
+            unit: "1 Liter",
+            price: 420,
+            oldPrice: 480,
+            rating: 4.8,
+            reviews: 124,
+            badge: "Best Seller",
+            image: "images/products/oil.png"
+        },
+        {
+            name: "Sundarbans Honey",
+            localName: "Sundarbans Natural Honey",
+            category: "Honey",
+            description: "Naturally collected honey, filtered and sealed without added sugar or artificial flavor.",
+            unit: "500g",
+            price: 650,
+            oldPrice: 760,
+            rating: 4.9,
+            reviews: 98,
+            badge: "Pure",
+            image: "images/products/honey.png"
+        },
+        {
+            name: "Turmeric Powder",
+            localName: "Single Origin Turmeric Powder",
+            category: "Turmeric",
+            description: "Bright turmeric powder made from selected roots, dried and ground for everyday cooking.",
+            unit: "200g",
+            price: 180,
+            oldPrice: 220,
+            rating: 4.7,
+            reviews: 76,
+            badge: "Fresh",
+            image: "images/products/turmeric.png"
+        },
+        {
+            name: "Ajwa Dates",
+            localName: "Premium Ajwa Dates",
+            category: "Dates",
+            description: "Soft premium dates packed hygienically for gifting, iftar tables, and family snacking.",
+            unit: "1kg",
+            price: 1250,
+            oldPrice: 1380,
+            rating: 4.9,
+            reviews: 67,
+            badge: "Premium",
+            image: "images/products/dates.png"
+        },
+        {
+            name: "Mixed Spice Blend",
+            localName: "Homestyle Mixed Spice Blend",
+            category: "Masala",
+            description: "Aromatic small-batch spice blend prepared for rich Bangladeshi home cooking.",
+            unit: "250g",
+            price: 240,
+            oldPrice: 290,
+            rating: 4.6,
+            reviews: 52,
+            badge: "New",
+            image: "images/products/masala.png"
+        },
+        {
+            name: "Premium Nuts Mix",
+            localName: "Premium Nuts Mix",
+            category: "Nuts",
+            description: "Balanced nuts mix for healthy snacking, breakfast bowls, and thoughtful food gifts.",
+            unit: "500g",
+            price: 780,
+            oldPrice: 890,
+            rating: 4.8,
+            reviews: 43,
+            badge: "Healthy",
+            image: "images/products/dates.png"
+        }
+    ];
 
     const readCart = () => {
         try {
@@ -16,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const saveCart = (cart) => {
+        localStorage.setItem(CART_TOUCHED_KEY, "true");
         localStorage.setItem(CART_KEY, JSON.stringify(cart));
         updateCartBadges(cart);
     };
@@ -26,6 +109,22 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const formatPrice = (amount) => `Tk. ${Number(amount || 0).toLocaleString("en-US")}`;
+
+    const starMarkup = (rating) => {
+        const fullStars = Math.floor(rating);
+        const hasHalf = rating % 1 >= 0.5;
+        let markup = "";
+
+        for (let index = 0; index < fullStars; index += 1) {
+            markup += '<i class="bi bi-star-fill"></i>';
+        }
+
+        if (hasHalf) {
+            markup += '<i class="bi bi-star-half"></i>';
+        }
+
+        return markup;
+    };
 
     const cleanText = (element) => element ? element.textContent.replace(/\s+/g, " ").trim() : "";
 
@@ -93,6 +192,186 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         saveCart(cart);
+    };
+
+    const catalogProductCard = (product) => `
+        <div class="col-lg-4 col-md-6 product-result" data-category="${product.category}" data-price="${product.price}">
+            <div class="product-card catalog-card">
+                <div class="product-img">
+                    <span class="discount">${product.badge}</span>
+                    <button class="wishlist-btn" type="button" aria-label="Save ${product.name}">
+                        <i class="bi bi-heart"></i>
+                    </button>
+                    <a href="product-details.html">
+                        <img src="${product.image}" alt="${product.name}">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <div class="product-rating">
+                        ${starMarkup(product.rating)}
+                        <span>(${product.rating}) ${product.reviews} reviews</span>
+                    </div>
+                    <h4>${product.localName}</h4>
+                    <p>${product.description}</p>
+                    <div class="product-meta">
+                        <span><i class="bi bi-box-seam"></i> ${product.unit}</span>
+                        <span><i class="bi bi-check-circle"></i> In stock</span>
+                    </div>
+                    <div class="price">
+                        <span class="new-price">${formatPrice(product.price)}</span>
+                        <span class="old-price">${formatPrice(product.oldPrice)}</span>
+                    </div>
+                    <div class="product-btns">
+                        <a href="product-details.html" class="btn btn-outline-success">Details</a>
+                        <button class="btn btn-green" type="button">
+                            <i class="bi bi-cart-plus"></i>
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const renderProductCatalog = () => {
+        const grid = document.getElementById("productGrid");
+
+        if (!grid) {
+            return;
+        }
+
+        const searchInput = document.getElementById("productSearch");
+        const priceInput = document.getElementById("priceRange");
+        const sortSelect = document.getElementById("productSort");
+        const activeCategory = document.querySelector(".category-list a.active");
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+        const maxPrice = priceInput ? Number(priceInput.value) : 1500;
+        const category = activeCategory ? activeCategory.dataset.category : "All";
+
+        let products = productCatalog.filter((product) => {
+            const matchesSearch = [
+                product.name,
+                product.localName,
+                product.category,
+                product.description
+            ].join(" ").toLowerCase().includes(query);
+            const matchesCategory = category === "All" || product.category === category;
+            const matchesPrice = product.price <= maxPrice;
+
+            return matchesSearch && matchesCategory && matchesPrice;
+        });
+
+        if (sortSelect) {
+            const sortValue = sortSelect.value.toLowerCase();
+            products = products.sort((first, second) => {
+                if (sortValue === "price-low" || sortValue.includes("low")) {
+                    return first.price - second.price;
+                }
+
+                if (sortValue === "price-high" || sortValue.includes("high")) {
+                    return second.price - first.price;
+                }
+
+                if (sortValue === "rating" || sortValue.includes("rated")) {
+                    return second.rating - first.rating;
+                }
+
+                return productCatalog.indexOf(first) - productCatalog.indexOf(second);
+            });
+        }
+
+        grid.innerHTML = products.length
+            ? products.map(catalogProductCard).join("")
+            : `
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="bi bi-search"></i>
+                        <h4>No products found</h4>
+                        <p>Try a different keyword, category, or price range.</p>
+                    </div>
+                </div>
+            `;
+
+        const resultCount = document.getElementById("resultCount");
+
+        if (resultCount) {
+            resultCount.textContent = `${products.length} products found`;
+        }
+    };
+
+    const setupProductFilters = () => {
+        const productSearch = document.getElementById("productSearch");
+        const priceRange = document.getElementById("priceRange");
+        const priceValue = document.getElementById("priceValue");
+        const sortSelect = document.getElementById("productSort");
+        const applyButton = document.getElementById("applyFilter");
+
+        if (priceRange && priceValue) {
+            priceValue.textContent = formatPrice(priceRange.value);
+            priceRange.addEventListener("input", () => {
+                priceValue.textContent = formatPrice(priceRange.value);
+                renderProductCatalog();
+            });
+        }
+
+        if (productSearch) {
+            productSearch.addEventListener("input", renderProductCatalog);
+        }
+
+        if (sortSelect) {
+            sortSelect.addEventListener("change", renderProductCatalog);
+        }
+
+        if (applyButton) {
+            applyButton.addEventListener("click", renderProductCatalog);
+        }
+
+        document.querySelectorAll(".category-list a").forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                document.querySelectorAll(".category-list a").forEach((item) => item.classList.remove("active"));
+                link.classList.add("active");
+                renderProductCatalog();
+            });
+        });
+    };
+
+    const cartSubtotal = (cart = readCart()) => cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+    const cartDelivery = (subtotal) => subtotal > 0 ? DELIVERY_CHARGE : 0;
+
+    const seedCartFromStaticRows = () => {
+        const tbody = document.querySelector(".cart-table tbody");
+
+        if (!tbody || localStorage.getItem(CART_KEY) || localStorage.getItem(CART_TOUCHED_KEY)) {
+            return;
+        }
+
+        const cart = Array.from(tbody.querySelectorAll("tr")).map((row) => {
+            const cells = row.children;
+            const imageElement = row.querySelector(".cart-product img");
+            const input = row.querySelector(".quantity-box input");
+            const name = cleanText(row.querySelector(".cart-product h5"));
+            const price = parsePrice(cells[1] ? cells[1].textContent : "");
+            const image = imageElement ? imageElement.getAttribute("src") : "";
+
+            if (!name || !price) {
+                return null;
+            }
+
+            return {
+                id: productId({ name, price, image }),
+                name,
+                description: cleanText(row.querySelector(".cart-product small")),
+                image,
+                price,
+                quantity: Math.max(1, parseInt(input ? input.value : "1", 10) || 1)
+            };
+        }).filter(Boolean);
+
+        if (cart.length) {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        }
     };
 
     const setButtonAddedState = (button) => {
@@ -202,6 +481,345 @@ document.addEventListener("DOMContentLoaded", () => {
         saveCart(cart);
     };
 
+    const renderCheckoutSummary = () => {
+        const summary = document.querySelector(".checkout-summary");
+
+        if (!summary) {
+            return;
+        }
+
+        const cart = readCart();
+        const subtotal = cartSubtotal(cart);
+        const delivery = cartDelivery(subtotal);
+        const grandTotal = subtotal + delivery;
+
+        const productsMarkup = cart.length
+            ? cart.map((item) => `
+                <div class="summary-product">
+                    <span>${item.name} x ${item.quantity}</span>
+                    <strong>${formatPrice(item.price * item.quantity)}</strong>
+                </div>
+            `).join("")
+            : `
+                <div class="summary-product">
+                    <span>Your cart is empty</span>
+                    <strong>${formatPrice(0)}</strong>
+                </div>
+            `;
+
+        summary.innerHTML = `
+            <h3>Order Summary</h3>
+            <div class="checkout-products">
+                ${productsMarkup}
+            </div>
+            <hr>
+            <div class="summary-product">
+                <span>Subtotal</span>
+                <strong>${formatPrice(subtotal)}</strong>
+            </div>
+            <div class="summary-product">
+                <span>Delivery</span>
+                <strong>${formatPrice(delivery)}</strong>
+            </div>
+            <div class="summary-product">
+                <span>Discount</span>
+                <strong>${formatPrice(0)}</strong>
+            </div>
+            <hr>
+            <div class="summary-product total">
+                <span>Total</span>
+                <strong>${formatPrice(grandTotal)}</strong>
+            </div>
+            <button class="btn btn-green w-100 mt-4" id="placeOrder" type="button">
+                <i class="bi bi-check-circle"></i>
+                Place Order
+            </button>
+            <a href="cart.html" class="btn btn-outline-success w-100 mt-3">
+                <i class="bi bi-arrow-left"></i>
+                Back to Cart
+            </a>
+        `;
+    };
+
+    const setupCheckoutForm = () => {
+        const checkoutForm = document.getElementById("checkoutForm");
+
+        if (!checkoutForm) {
+            return;
+        }
+
+        checkoutForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
+    };
+
+    const placeOrder = () => {
+        const checkoutForm = document.getElementById("checkoutForm");
+        const cart = readCart();
+
+        if (checkoutForm && !checkoutForm.checkValidity()) {
+            checkoutForm.reportValidity();
+            return;
+        }
+
+        if (!cart.length) {
+            alert("Your cart is empty. Please add products before checkout.");
+            window.location.href = "products.html";
+            return;
+        }
+
+        const subtotal = cartSubtotal(cart);
+        const total = subtotal + cartDelivery(subtotal);
+        const payment = document.querySelector('input[name="payment"]:checked');
+        const paymentLabel = payment ? cleanText(document.querySelector(`label[for="${payment.id}"]`)) : "Cash on Delivery";
+        const order = {
+            id: `#KS${Date.now().toString().slice(-8)}`,
+            date: new Date().toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }),
+            paymentMethod: paymentLabel,
+            total,
+            items: cart
+        };
+
+        localStorage.setItem(ORDER_KEY, JSON.stringify(order));
+        saveCart([]);
+        window.location.href = "order-success.html";
+    };
+
+    const renderOrderSuccess = () => {
+        const details = document.querySelector(".order-details");
+
+        if (!details) {
+            return;
+        }
+
+        let order = null;
+
+        try {
+            order = JSON.parse(localStorage.getItem(ORDER_KEY));
+        } catch (error) {
+            order = null;
+        }
+
+        if (!order) {
+            details.innerHTML = `
+                <div>
+                    <span>Order Status</span>
+                    <strong>No recent order found</strong>
+                </div>
+            `;
+            return;
+        }
+
+        details.innerHTML = `
+            <div>
+                <span>Order ID</span>
+                <strong>${order.id}</strong>
+            </div>
+            <div>
+                <span>Order Date</span>
+                <strong>${order.date}</strong>
+            </div>
+            <div>
+                <span>Payment Method</span>
+                <strong>${order.paymentMethod}</strong>
+            </div>
+            <div>
+                <span>Total Amount</span>
+                <strong>${formatPrice(order.total)}</strong>
+            </div>
+        `;
+    };
+
+    const productByImage = (image) => productCatalog.find((product) => image && image.includes(product.image.split("/").pop()));
+
+    const normalizeStorefrontCopy = () => {
+        document.querySelectorAll(".top-header p").forEach((item) => {
+            item.innerHTML = 'Order authentic groceries by phone or WhatsApp: <span><i class="bi bi-telephone"></i> +880 1800 000 000</span>';
+        });
+
+        document.querySelectorAll(".navbar-nav").forEach((nav) => {
+            nav.innerHTML = `
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="products.html#mustard-oil">Mustard Oil</a></li>
+                <li class="nav-item"><a class="nav-link" href="products.html#honey">Honey</a></li>
+                <li class="nav-item"><a class="nav-link" href="products.html#masala">Masala</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            `;
+        });
+
+        const page = window.location.pathname.split("/").pop() || "index.html";
+        document.querySelectorAll(`.navbar-nav a[href="${page}"]`).forEach((link) => link.classList.add("active"));
+
+        document.querySelectorAll(".search-box input").forEach((input) => {
+            input.setAttribute("placeholder", "Search oil, honey, turmeric, dates...");
+            input.setAttribute("aria-label", "Search products");
+        });
+    };
+
+    const enhanceStaticProducts = () => {
+        const fallbackProducts = [...productCatalog, ...productCatalog];
+
+        document.querySelectorAll(".product-card").forEach((card, index) => {
+            const image = card.querySelector("img");
+            const product = productByImage(image ? image.getAttribute("src") : "") || fallbackProducts[index % fallbackProducts.length];
+
+            if (!product) {
+                return;
+            }
+
+            const title = card.querySelector("h4, h5, h6");
+            const description = card.querySelector(".product-content p, h6 + p");
+            const newPrice = card.querySelector(".new-price");
+            const oldPrice = card.querySelector(".old-price");
+            const rating = card.querySelector(".product-rating span");
+
+            if (title) {
+                title.textContent = product.localName;
+            }
+
+            if (description) {
+                description.textContent = `${product.unit} - ${product.description}`;
+            }
+
+            if (newPrice) {
+                newPrice.textContent = formatPrice(product.price);
+            }
+
+            if (oldPrice) {
+                oldPrice.textContent = formatPrice(product.oldPrice);
+            }
+
+            if (rating) {
+                rating.textContent = `(${product.rating}) ${product.reviews} reviews`;
+            }
+        });
+
+        document.querySelectorAll(".category-card h5").forEach((title, index) => {
+            const labels = ["Mustard Oil", "Honey", "Masala", "Dates", "Turmeric", "Nuts", "Gift Packs"];
+            title.textContent = labels[index % labels.length];
+        });
+    };
+
+    const renderHomeProductRows = () => {
+        const home = document.querySelector(".hero");
+
+        if (!home || document.querySelector(".store-assurance")) {
+            return;
+        }
+
+        home.insertAdjacentHTML("afterend", `
+            <section class="store-assurance">
+                <div class="container">
+                    <div class="assurance-grid">
+                        <div><i class="bi bi-shield-check"></i><strong>Purity checked</strong><span>Verified suppliers and hygienic packing.</span></div>
+                        <div><i class="bi bi-truck"></i><strong>Nationwide delivery</strong><span>Dhaka next day, outside Dhaka 2-4 days.</span></div>
+                        <div><i class="bi bi-cash-coin"></i><strong>COD available</strong><span>Pay by cash, bKash, Nagad, or Rocket.</span></div>
+                        <div><i class="bi bi-arrow-repeat"></i><strong>Easy support</strong><span>Fast replacement for damaged parcels.</span></div>
+                    </div>
+                </div>
+            </section>
+        `);
+
+        const heroTitle = document.querySelector(".hero-content h1");
+        const heroSubtitle = document.querySelector(".hero-content h2");
+        const heroButton = document.querySelector(".hero-btn");
+
+        if (heroTitle) {
+            heroTitle.textContent = "Pure groceries for serious home cooking";
+        }
+
+        if (heroSubtitle) {
+            heroSubtitle.textContent = "Shop mustard oil, honey, turmeric, spices, dates, and pantry staples sourced with care across Bangladesh.";
+        }
+
+        if (heroButton) {
+            heroButton.textContent = "Shop Products";
+        }
+    };
+
+    const enhanceDetailPage = () => {
+        const info = document.querySelector(".product-info");
+
+        if (!info || info.querySelector(".detail-trust-list")) {
+            return;
+        }
+
+        info.insertAdjacentHTML("beforeend", `
+            <div class="detail-trust-list">
+                <span><i class="bi bi-check-circle"></i> No artificial color or fragrance</span>
+                <span><i class="bi bi-box-seam"></i> Sealed food-grade packaging</span>
+                <span><i class="bi bi-truck"></i> Delivery charge from ${formatPrice(DELIVERY_CHARGE)}</span>
+            </div>
+        `);
+    };
+
+    const enhanceForms = () => {
+        document.querySelectorAll(".login-card form, .contact-form, #checkoutForm").forEach((form) => {
+            form.addEventListener("submit", (event) => {
+                if (!form.checkValidity()) {
+                    return;
+                }
+
+                if (!form.id || form.id !== "checkoutForm") {
+                    event.preventDefault();
+                    const button = form.querySelector("button[type='submit'], .btn-green");
+                    if (button) {
+                        button.innerHTML = '<i class="bi bi-check2-circle"></i> Submitted';
+                    }
+                }
+            });
+        });
+    };
+
+    const ensureStoreFooter = () => {
+        if (document.querySelector("footer")) {
+            return;
+        }
+
+        document.body.insertAdjacentHTML("beforeend", `
+            <footer class="compact-footer">
+                <div class="container">
+                    <div class="row gy-4 align-items-start">
+                        <div class="col-lg-4">
+                            <img src="images/logo.png" class="footer-logo" alt="Khati Soday">
+                            <p>Pure grocery essentials delivered across Bangladesh with careful sourcing, hygienic packing, and responsive support.</p>
+                        </div>
+                        <div class="col-lg-3">
+                            <h5>Shop</h5>
+                            <ul>
+                                <li><a href="products.html">All Products</a></li>
+                                <li><a href="products.html#mustard-oil">Mustard Oil</a></li>
+                                <li><a href="products.html#honey">Honey</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3">
+                            <h5>Support</h5>
+                            <ul>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="cart.html">Cart</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2">
+                            <h5>Contact</h5>
+                            <ul>
+                                <li>+880 1800 000 000</li>
+                                <li>Dhaka, Bangladesh</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="footer-bottom-text">Copyright 2026 Khati Soday. All Rights Reserved.</div>
+                </div>
+            </footer>
+        `);
+    };
+
     const setupMobileHeader = () => {
         const header = document.querySelector(".main-header .container");
         const desktopLogo = document.querySelector(".main-header .logo");
@@ -300,6 +918,12 @@ document.addEventListener("DOMContentLoaded", () => {
             updateCartTotals();
             renderCartPage();
         }
+
+        const placeOrderButton = event.target.closest("#placeOrder");
+
+        if (placeOrderButton) {
+            placeOrder();
+        }
     });
 
     document.addEventListener("change", (event) => {
@@ -321,6 +945,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 value.textContent = (parseInt(value.textContent, 10) || 1) + 1;
             });
         }
+    });
+
+    document.querySelectorAll(".thumbnail-gallery .thumb").forEach((thumb) => {
+        thumb.addEventListener("click", () => {
+            const mainImage = document.querySelector(".main-product-image");
+
+            if (!mainImage) {
+                return;
+            }
+
+            mainImage.setAttribute("src", thumb.dataset.image);
+            document.querySelectorAll(".thumbnail-gallery .thumb").forEach((item) => {
+                item.classList.remove("active");
+            });
+            thumb.classList.add("active");
+        });
     });
 
     const togglePassword = document.getElementById("togglePassword");
@@ -349,7 +989,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (password && confirmPassword) {
+        const validatePasswordMatch = () => {
+            confirmPassword.setCustomValidity(
+                password.value && confirmPassword.value && password.value !== confirmPassword.value
+                    ? "Passwords do not match."
+                    : ""
+            );
+        };
+
+        password.addEventListener("input", validatePasswordMatch);
+        confirmPassword.addEventListener("input", validatePasswordMatch);
+    }
+
+    normalizeStorefrontCopy();
+    renderHomeProductRows();
+    enhanceStaticProducts();
+    enhanceDetailPage();
+    enhanceForms();
+    ensureStoreFooter();
+    seedCartFromStaticRows();
     setupMobileHeader();
+    setupProductFilters();
+    renderProductCatalog();
+    setupCheckoutForm();
     renderCartPage();
+    renderCheckoutSummary();
+    renderOrderSuccess();
     updateCartBadges();
 });
