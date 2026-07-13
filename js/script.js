@@ -777,47 +777,65 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const ensureStoreFooter = () => {
-        if (document.querySelector("footer")) {
-            return;
-        }
-
-        document.body.insertAdjacentHTML("beforeend", `
-            <footer class="compact-footer">
+        const footerMarkup = `
+            <footer class="store-footer">
                 <div class="container">
-                    <div class="row gy-4 align-items-start">
+                    <div class="row g-4 align-items-start">
                         <div class="col-lg-4">
                             <img src="images/logo.png" class="footer-logo" alt="Khati Soday">
-                            <p>Pure grocery essentials delivered across Bangladesh with careful sourcing, hygienic packing, and responsive support.</p>
+                            <p class="footer-description">Everyday grocery essentials sourced with care, hygienically packed, and delivered across Bangladesh.</p>
+                            <div class="footer-trust" aria-label="Store promises">
+                                <span><i class="bi bi-patch-check"></i> Quality checked</span>
+                                <span><i class="bi bi-truck"></i> Nationwide delivery</span>
+                            </div>
+                            <div class="footer-social" aria-label="Social media">
+                                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                            </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-6 col-lg-2">
                             <h5>Shop</h5>
                             <ul>
                                 <li><a href="products.html">All Products</a></li>
                                 <li><a href="products.html#mustard-oil">Mustard Oil</a></li>
                                 <li><a href="products.html#honey">Honey</a></li>
+                                <li><a href="products.html#masala">Masala</a></li>
                             </ul>
                         </div>
-                        <div class="col-lg-3">
-                            <h5>Support</h5>
+                        <div class="col-6 col-lg-2">
+                            <h5>Customer Care</h5>
                             <ul>
+                                <li><a href="profile.html">My Account</a></li>
+                                <li><a href="my-orders.html">Track Order</a></li>
                                 <li><a href="contact.html">Contact</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="products.html#offers">Offers</a></li>
                             </ul>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-4">
                             <h5>Contact</h5>
-                            <ul>
-                                <li>+880 1800 000 000</li>
-                                <li>Dhaka, Bangladesh</li>
+                            <ul class="footer-contact">
+                                <li><i class="bi bi-telephone"></i><a href="tel:+8801800000000">+880 1800 000 000</a></li>
+                                <li><i class="bi bi-envelope"></i><a href="mailto:info@khatisoday.com">info@khatisoday.com</a></li>
+                                <li><i class="bi bi-geo-alt"></i><span>Dhaka, Bangladesh</span></li>
                             </ul>
                         </div>
                     </div>
-                    <hr>
-                    <div class="footer-bottom-text">Copyright 2026 Khati Soday. All Rights Reserved.</div>
+                    <div class="store-footer-bottom">
+                        <span>© 2026 Khati Soday. All rights reserved.</span>
+                        <span><i class="bi bi-shield-check"></i> Safe &amp; secure checkout</span>
+                    </div>
                 </div>
             </footer>
-        `);
+        `;
+        const existingFooter = document.querySelector("footer");
+
+        if (existingFooter) {
+            existingFooter.outerHTML = footerMarkup;
+        } else {
+            document.body.insertAdjacentHTML("beforeend", footerMarkup);
+        }
     };
 
     const setupMobileHeader = () => {
@@ -840,6 +858,56 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         header.insertBefore(mobileTop, header.firstElementChild);
+    };
+
+    const setupStoreNavigation = () => {
+        const header = document.querySelector(".main-header .container");
+        const headerRow = header?.querySelector(".row.align-items-center");
+        const logoColumn = headerRow?.querySelector(":scope > .col-lg-2");
+        const navList = document.querySelector(".navbar .navbar-nav");
+
+        if (headerRow) {
+            headerRow.classList.add("desktop-header");
+
+            if (!headerRow.querySelector(".desktop-primary-nav")) {
+                const primaryNav = document.createElement("nav");
+                primaryNav.className = "desktop-primary-nav d-none d-lg-flex";
+                primaryNav.setAttribute("aria-label", "Primary navigation");
+                primaryNav.innerHTML = `
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="products.html#offers">Offers</a>
+                    <a href="contact.html">Contact</a>
+                `;
+
+                if (logoColumn) {
+                    logoColumn.after(primaryNav);
+                } else {
+                    headerRow.prepend(primaryNav);
+                }
+            }
+        }
+
+        if (!navList || navList.dataset.storeNavigationReady) {
+            return;
+        }
+
+        navList.dataset.storeNavigationReady = "true";
+        navList.classList.add("category-nav-links");
+        navList.innerHTML = `
+            <li class="nav-item mobile-primary-link d-lg-none"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item mobile-primary-link d-lg-none"><a class="nav-link" href="products.html">Products</a></li>
+            <li class="nav-item mobile-primary-link d-lg-none"><a class="nav-link" href="products.html#offers">Offers</a></li>
+            <li class="nav-item mobile-primary-link d-lg-none"><a class="nav-link" href="profile.html"><i class="bi bi-person-circle"></i> My Account</a></li>
+            <li class="nav-item mobile-primary-link d-lg-none"><a class="nav-link" href="cart.html"><i class="bi bi-cart3"></i> Cart</a></li>
+            <li class="nav-item"><a class="nav-link" href="products.html#mustard-oil">Mustard Oil</a></li>
+            <li class="nav-item"><a class="nav-link" href="products.html#honey">Honey</a></li>
+            <li class="nav-item"><a class="nav-link" href="products.html#dates">Dates</a></li>
+            <li class="nav-item"><a class="nav-link" href="products.html#masala">Masala</a></li>
+            <li class="nav-item"><a class="nav-link" href="products.html#nuts">Nuts</a></li>
+            <li class="nav-item"><a class="nav-link" href="products.html#pickles">Pickles</a></li>
+            <li class="nav-item"><a class="nav-link" href="products.html#tea">Tea</a></li>
+        `;
     };
 
     const navbar = document.querySelector(".navbar");
@@ -1009,6 +1077,7 @@ document.addEventListener("DOMContentLoaded", () => {
     enhanceForms();
     ensureStoreFooter();
     seedCartFromStaticRows();
+    setupStoreNavigation();
     setupMobileHeader();
     setupProductFilters();
     renderProductCatalog();

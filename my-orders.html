@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile | Khati Soday</title>
+    <title>My Orders | Khati Soday</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,11 +92,12 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="profile.html">My Profile</a></li>
                             <li class="breadcrumb-item active" aria-current="page"></li>
                         </ol>
                     </nav>
-                    <h1>My Profile</h1>
-                    <p>Manage your account information, contact details, and delivery address.</p>
+                    <h1>My Orders</h1>
+                    <p>Track recent purchases, payment details, and delivery status.</p>
                 </div>
                 <button class="btn btn-green d-lg-none account-sidebar-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#profileMenu" aria-controls="profileMenu" aria-label="Open account menu">
                     <i class="bi bi-list"></i>
@@ -117,10 +118,10 @@
                         </div>
 
                         <ul class="profile-menu">
-                            <li class="active">
+                            <li>
                                 <a href="profile.html"><i class="bi bi-person"></i> My Profile</a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="my-orders.html"><i class="bi bi-bag"></i> My Orders</a>
                             </li>
                             <li>
@@ -143,102 +144,144 @@
                     <div class="profile-content">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <div>
-                                <h3 class="mb-1">Personal Information</h3>
-                                <p class="text-muted mb-0">Keep your delivery and contact details up to date.</p>
+                                <h3 class="mb-1">My Orders</h3>
+                                <p class="text-muted mb-0">2 orders found in your account.</p>
                             </div>
-                            <a href="my-orders.html" class="btn btn-outline-success">
-                                <i class="bi bi-bag-check"></i>
-                                View Orders
+                            <a href="products.html" class="btn btn-outline-success">
+                                <i class="bi bi-bag-plus"></i>
+                                Shop Again
                             </a>
                         </div>
 
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="firstName">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" value="Nazmul" autocomplete="given-name" required>
+                        <div class="order-card">
+                            <div class="order-top">
+                                <div>
+                                    <h5>Order #KS202600125</h5>
+                                    <small>Placed on 07 July 2026</small>
                                 </div>
+                                <span class="badge bg-success">Delivered</span>
+                            </div>
 
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="lastName">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" value="Huda Labu" autocomplete="family-name" required>
+                            <hr>
+
+                            <div class="row gy-3">
+                                <div class="col-md-4">
+                                    <strong>Payment</strong>
+                                    <p>Cash on Delivery</p>
                                 </div>
-
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="phone">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phone" value="+8801800000000" autocomplete="tel" required>
+                                <div class="col-md-4">
+                                    <strong>Items</strong>
+                                    <p>3 Products</p>
                                 </div>
-
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="email">Email Address</label>
-                                    <input type="email" class="form-control" id="email" value="nazmul@example.com" autocomplete="email" required>
-                                </div>
-
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="birthDate">Date of Birth</label>
-                                    <input type="date" class="form-control" id="birthDate" autocomplete="bday">
-                                </div>
-
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="gender">Gender</label>
-                                    <select class="form-select" id="gender">
-                                        <option selected>Male</option>
-                                        <option>Female</option>
-                                        <option>Other</option>
-                                        <option>Prefer not to say</option>
-                                    </select>
+                                <div class="col-md-4">
+                                    <strong>Total</strong>
+                                    <p>Tk. 3,230</p>
                                 </div>
                             </div>
 
-                            <hr class="my-4">
-
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="mb-0">Delivery Address</h4>
-                                <span class="badge bg-success-subtle text-success">Default</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="district">District</label>
-                                    <input type="text" class="form-control" id="district" value="Dhaka" autocomplete="address-level1">
-                                </div>
-
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="area">Area</label>
-                                    <input type="text" class="form-control" id="area" value="Mirpur" autocomplete="address-level2">
-                                </div>
-
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="postalCode">Postal Code</label>
-                                    <input type="text" class="form-control" id="postalCode" placeholder="1216" autocomplete="postal-code">
-                                </div>
-
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label" for="addressLabel">Address Label</label>
-                                    <select class="form-select" id="addressLabel">
-                                        <option selected>Home</option>
-                                        <option>Office</option>
-                                        <option>Other</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-12 mb-4">
-                                    <label class="form-label" for="fullAddress">Full Address</label>
-                                    <textarea class="form-control" id="fullAddress" rows="4" placeholder="House no, road no, building name, nearby landmark..." autocomplete="street-address"></textarea>
+                            <div class="collapse mt-4" id="orderOneDetails">
+                                <div class="table-responsive">
+                                    <table class="table align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Qty</th>
+                                                <th class="text-end">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Pure Mustard Oil</td>
+                                                <td>2</td>
+                                                <td class="text-end">Tk. 840</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sundarbans Honey</td>
+                                                <td>2</td>
+                                                <td class="text-end">Tk. 1,300</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ajwa Dates</td>
+                                                <td>1</td>
+                                                <td class="text-end">Tk. 1,250</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-wrap gap-3">
-                                <button type="submit" class="btn btn-green">
-                                    <i class="bi bi-check-circle"></i>
-                                    Save Changes
-                                </button>
-                                <button type="reset" class="btn btn-outline-secondary">
-                                    <i class="bi bi-arrow-counterclockwise"></i>
-                                    Reset
-                                </button>
+                            <a href="order-details.html"
+   class="btn btn-green mt-3">
+
+    <i class="bi bi-receipt"></i>
+
+    View Details
+
+</a>
+                        </div>
+
+                        <div class="order-card mt-4">
+                            <div class="order-top">
+                                <div>
+                                    <h5>Order #KS202600126</h5>
+                                    <small>Placed on 10 July 2026</small>
+                                </div>
+                                <span class="badge bg-warning text-dark">Processing</span>
                             </div>
-                        </form>
+
+                            <hr>
+
+                            <div class="row gy-3">
+                                <div class="col-md-4">
+                                    <strong>Payment</strong>
+                                    <p>bKash</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Items</strong>
+                                    <p>2 Products</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Total</strong>
+                                    <p>Tk. 1,750</p>
+                                </div>
+                            </div>
+
+                            <div class="collapse mt-4" id="orderTwoDetails">
+                                <div class="table-responsive">
+                                    <table class="table align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Qty</th>
+                                                <th class="text-end">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Turmeric Powder</td>
+                                                <td>2</td>
+                                                <td class="text-end">Tk. 360</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Premium Nuts Mix</td>
+                                                <td>1</td>
+                                                <td class="text-end">Tk. 780</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Delivery Charge</td>
+                                                <td>1</td>
+                                                <td class="text-end">Tk. 80</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-green mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#orderTwoDetails" aria-expanded="false" aria-controls="orderTwoDetails">
+                                <i class="bi bi-receipt"></i>
+                                View Details
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -317,10 +360,10 @@
             </div>
 
             <ul class="profile-menu">
-                <li class="active">
+                <li>
                     <a href="profile.html"><i class="bi bi-person"></i> My Profile</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="my-orders.html"><i class="bi bi-bag"></i> My Orders</a>
                 </li>
                 <li>
