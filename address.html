@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>My Addresses | Khati Soday</title>
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link rel="stylesheet"
+      href="css/style.css">
+
+<link rel="stylesheet"
+      href="css/address.css">
+
+</head>
+
+<body>
+
+<!-- Header -->
+
+<header class="sticky-top bg-white shadow-sm">
+
+<div class="container">
+
+<div class="d-flex align-items-center justify-content-between py-3">
+
+<a href="index.html">
+
+<img src="images/logo.png"
+     class="logo"
+     alt="Khati Soday">
+
+</a>
+
+<button
+class="btn btn-light rounded-circle profile-menu-btn d-lg-none"
+data-bs-toggle="offcanvas"
+data-bs-target="#profileMenu">
+
+    <i class="bi bi-list fs-4"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- Compact Breadcrumb -->
+
+<section class="address-top">
+
+<div class="container">
+
+<nav class="small mb-2">
+
+<a href="index.html">
+
+Home
+
+</a>
+
+<span>/</span>
+
+<a href="profile.html">
+
+Profile
+
+</a>
+
+<span>/</span>
+
+<strong>
+
+Addresses
+
+</strong>
+
+</nav>
+
+<div class="d-flex align-items-center justify-content-between">
+
+<div>
+
+<h2 class="page-title">
+
+My Addresses
+
+</h2>
+
+<p>
+
+Manage your saved delivery locations
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Profile Section Starts -->
+
+<section class="profile-section py-3">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- Desktop Sidebar -->
+
+            <div class="col-lg-3 d-none d-lg-block">
+
+                <aside class="profile-sidebar">
+
+                    <div class="profile-user">
+
+                        <div class="avatar">
+
+                            <i class="bi bi-person-circle"></i>
+
+                        </div>
+
+                        <h5>Nazmul Huda</h5>
+
+                        <small>nazmul@email.com</small>
+
+                    </div>
+
+                    <ul class="profile-menu">
+
+                        <li>
+                            <a href="profile.html">
+                                <i class="bi bi-person"></i>
+                                My Profile
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="my-orders.html">
+                                <i class="bi bi-bag"></i>
+                                My Orders
+                            </a>
+                        </li>
+
+                        <li class="active">
+                            <a href="address.html">
+                                <i class="bi bi-geo-alt"></i>
+                                My Addresses
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="wishlist.html">
+                                <i class="bi bi-heart"></i>
+                                Wishlist
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="change-password.html">
+                                <i class="bi bi-key"></i>
+                                Change Password
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="login.html">
+                                <i class="bi bi-box-arrow-right"></i>
+                                Logout
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </aside>
+
+            </div>
+
+            <!-- Content -->
+
+            <div class="col-lg-9">
+
+                <div class="address-wrapper">
+
+                
+
+                    <!-- Address List -->
+
+                    <div
+
+                        id="addressList"
+
+                        class="row gy-3">
+
+                        <!-- JS Creates Cards -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Floating Add Button -->
+
+<button
+
+class="btn btn-success add-address-fab"
+
+data-bs-toggle="modal"
+
+data-bs-target="#addressModal"
+
+title="Add Address">
+
+<i class="bi bi-plus-lg"></i>
+
+</button>
+
+
+<!-- Address Modal -->
+ <!-- =====================================
+Address Modal
+====================================== -->
+
+<div class="modal fade"
+     id="addressModal"
+     tabindex="-1"
+     aria-labelledby="addressModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 rounded-4 shadow">
+
+            <!-- Header -->
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h5 class="modal-title fw-bold"
+                        id="addressModalLabel">
+
+                        <i class="bi bi-geo-alt-fill text-success me-2"></i>
+
+                        Add New Address
+
+                    </h5>
+
+                    <small class="text-muted">
+
+                        Save your delivery location
+
+                    </small>
+
+                </div>
+
+                <button
+
+                    type="button"
+
+                    class="btn-close"
+
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <!-- Body -->
+
+            <div class="modal-body">
+
+                <form id="addressForm">
+
+                    <!-- Name -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Full Name
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            class="form-control form-control-lg"
+
+                            name="name"
+
+                            placeholder="Enter your full name"
+
+                            required>
+
+                    </div>
+
+                    <!-- Phone -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Phone Number
+
+                        </label>
+
+                        <input
+
+                            type="tel"
+
+                            class="form-control form-control-lg"
+
+                            name="phone"
+
+                            placeholder="01XXXXXXXXX"
+
+                            required>
+
+                    </div>
+
+                    <!-- Division -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Division
+
+                        </label>
+
+                        <select
+
+                            class="form-select form-select-lg"
+
+                            name="division">
+
+                            <option value="Dhaka">Dhaka</option>
+                            <option value="Chattogram">Chattogram</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                            <option value="Khulna">Khulna</option>
+                            <option value="Barishal">Barishal</option>
+                            <option value="Sylhet">Sylhet</option>
+                            <option value="Rangpur">Rangpur</option>
+                            <option value="Mymensingh">Mymensingh</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Address Type -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Address Type
+
+                        </label>
+
+                        <select
+
+                            class="form-select form-select-lg"
+
+                            name="label">
+
+                            <option value="Home">
+
+                                🏠 Home
+
+                            </option>
+
+                            <option value="Office">
+
+                                🏢 Office
+
+                            </option>
+
+                            <option value="Other">
+
+                                📍 Other
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Address -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Full Address
+
+                        </label>
+
+                        <textarea
+
+                            class="form-control"
+
+                            rows="4"
+
+                            name="address"
+
+                            placeholder="House, Road, Area, Police Station..."
+
+                            required></textarea>
+
+                    </div>
+
+                    <!-- Default -->
+
+                    <div class="form-check form-switch mb-4">
+
+                        <input
+
+                            class="form-check-input"
+
+                            type="checkbox"
+
+                            id="defaultAddress"
+
+                            name="default">
+
+                        <label
+
+                            class="form-check-label"
+
+                            for="defaultAddress">
+
+                            Set as Default Address
+
+                        </label>
+
+                    </div>
+
+                    <!-- Save -->
+
+                    <button
+
+                        type="submit"
+
+                        class="btn btn-success w-100 py-3 rounded-3">
+
+                        <i class="bi bi-check-circle-fill me-2"></i>
+
+                        Save Address
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Mobile Offcanvas Starts -->
+ <!-- =====================================
+Mobile Account Menu
+====================================== -->
+
+<div class="offcanvas offcanvas-start"
+     tabindex="-1"
+     id="profileMenu">
+
+    <div class="offcanvas-header border-bottom">
+
+        <h5 class="fw-bold mb-0">
+
+            <i class="bi bi-person-circle me-2 text-success"></i>
+
+            My Account
+
+        </h5>
+
+        <button
+
+            type="button"
+
+            class="btn-close"
+
+            data-bs-dismiss="offcanvas">
+
+        </button>
+
+    </div>
+
+    <div class="offcanvas-body p-0">
+
+        <div class="profile-user-mobile text-center py-4">
+
+            <i class="bi bi-person-circle display-3 text-success"></i>
+
+            <h5 class="mt-3 mb-1">
+
+                Nazmul Huda
+
+            </h5>
+
+            <small class="text-muted">
+
+                nazmul@email.com
+
+            </small>
+
+        </div>
+
+        <div class="list-group list-group-flush">
+
+            <a href="profile.html"
+               class="list-group-item list-group-item-action">
+
+                <i class="bi bi-person me-3"></i>
+
+                My Profile
+
+            </a>
+
+            <a href="my-orders.html"
+               class="list-group-item list-group-item-action">
+
+                <i class="bi bi-bag me-3"></i>
+
+                My Orders
+
+            </a>
+
+            <a href="address.html"
+               class="list-group-item list-group-item-action active">
+
+                <i class="bi bi-geo-alt me-3"></i>
+
+                My Addresses
+
+            </a>
+
+            <a href="wishlist.html"
+               class="list-group-item list-group-item-action">
+
+                <i class="bi bi-heart me-3"></i>
+
+                Wishlist
+
+            </a>
+
+            <a href="change-password.html"
+               class="list-group-item list-group-item-action">
+
+                <i class="bi bi-key me-3"></i>
+
+                Change Password
+
+            </a>
+
+            <a href="login.html"
+               class="list-group-item list-group-item-action text-danger">
+
+                <i class="bi bi-box-arrow-right me-3"></i>
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+Footer
+====================================== -->
+
+<footer class="footer py-5 mt-5">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <img src="images/logo.png"
+                     class="footer-logo mb-3"
+                     alt="Logo">
+
+                <p class="text-muted">
+
+                    Khati Soday delivers fresh, authentic
+                    and organic products across Bangladesh.
+
+                </p>
+
+            </div>
+
+            <div class="col-lg-2 col-6">
+
+                <h6 class="fw-bold">
+
+                    Quick Links
+
+                </h6>
+
+                <ul class="list-unstyled">
+
+                    <li><a href="index.html">Home</a></li>
+
+                    <li><a href="products.html">Products</a></li>
+
+                    <li><a href="about.html">About</a></li>
+
+                    <li><a href="contact.html">Contact</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <h6 class="fw-bold">
+
+                    Contact
+
+                </h6>
+
+                <p>
+
+                    <i class="bi bi-telephone"></i>
+
+                    +8801800000000
+
+                </p>
+
+                <p>
+
+                    <i class="bi bi-envelope"></i>
+
+                    info@khatisoday.com
+
+                </p>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <h6 class="fw-bold">
+
+                    Follow Us
+
+                </h6>
+
+                <div class="d-flex gap-3">
+
+                    <a href="#"><i class="bi bi-facebook fs-4"></i></a>
+
+                    <a href="#"><i class="bi bi-instagram fs-4"></i></a>
+
+                    <a href="#"><i class="bi bi-youtube fs-4"></i></a>
+
+                    <a href="#"><i class="bi bi-whatsapp fs-4"></i></a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center text-muted">
+
+            © 2026 Khati Soday. All Rights Reserved.
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- Floating Back To Top -->
+
+<button id="backToTop"
+        class="btn btn-success rounded-circle">
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
+
+<!-- Bootstrap -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Main Script -->
+
+<script src="js/script.js"></script>
+
+<!-- Address Script -->
+
+<script src="js/address.js"></script>
+
+</body>
+
+</html>

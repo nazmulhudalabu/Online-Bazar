@@ -1,0 +1,970 @@
+/* =========================================
+   ADDRESS PAGE - PART 1
+========================================= */
+
+:root{
+    --primary:#198754;
+    --primary-dark:#146c43;
+    --primary-light:#e8f7ef;
+
+    --text:#222;
+    --text-light:#6c757d;
+
+    --border:#e9ecef;
+    --bg:#f7f8fa;
+
+    --radius:18px;
+
+    --shadow-sm:0 4px 12px rgba(0,0,0,.05);
+    --shadow-md:0 10px 30px rgba(0,0,0,.08);
+    --shadow-lg:0 18px 45px rgba(0,0,0,.12);
+
+    --transition:.3s ease;
+}
+
+/* =========================================
+   PAGE
+========================================= */
+
+body{
+    background:var(--bg);
+    font-family:'Poppins',sans-serif;
+    color:var(--text);
+}
+
+/* =========================================
+   TOP SECTION
+========================================= */
+
+.address-top{
+    padding:18px 0 20px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+}
+
+.address-top nav{
+    font-size:13px;
+    color:var(--text-light);
+}
+
+.address-top nav a{
+    text-decoration:none;
+    color:var(--text-light);
+}
+
+.address-top nav a:hover{
+    color:var(--primary);
+}
+
+.address-top nav span{
+    margin:0 8px;
+}
+
+.page-title{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.address-top p{
+    margin:0;
+    color:var(--text-light);
+}
+
+/* =========================================
+   PROFILE SECTION
+========================================= */
+
+.profile-section{
+    padding:30px 0 80px;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.profile-sidebar{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.profile-user{
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.avatar{
+
+    width:85px;
+
+    height:85px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:var(--primary-light);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:48px;
+
+    color:var(--primary);
+
+}
+
+.profile-user h5{
+
+    margin-top:15px;
+
+    margin-bottom:5px;
+
+    font-weight:600;
+
+}
+
+.profile-user small{
+
+    color:var(--text-light);
+
+}
+
+/* =========================================
+   MENU
+========================================= */
+
+.profile-menu{
+
+    list-style:none;
+
+    margin:0;
+
+    padding:12px;
+
+}
+
+.profile-menu li{
+
+    margin-bottom:8px;
+
+}
+
+.profile-menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    text-decoration:none;
+
+    color:#333;
+
+    font-weight:500;
+
+    padding:14px 16px;
+
+    border-radius:14px;
+
+    transition:var(--transition);
+
+    min-height:48px;
+
+}
+
+.profile-menu a i{
+
+    font-size:20px;
+
+}
+
+.profile-menu a:hover{
+
+    background:var(--primary-light);
+
+    color:var(--primary);
+
+}
+
+.profile-menu li.active a{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.address-wrapper{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:28px;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.address-summary{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:28px;
+
+}
+
+.address-summary h3{
+
+    margin:0;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.address-summary span{
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+}
+
+/* =========================================
+   FLOATING BUTTON
+========================================= */
+
+.add-address-fab{
+
+    position:fixed;
+
+    right:24px;
+
+    bottom:24px;
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+    box-shadow:var(--shadow-lg);
+
+    z-index:1100;
+
+    transition:var(--transition);
+
+}
+
+.add-address-fab:hover{
+
+    transform:translateY(-4px) scale(1.05);
+
+}
+
+.add-address-fab:active{
+
+    transform:scale(.96);
+
+}
+
+/* =========================================
+   BUTTON TOUCH TARGET
+========================================= */
+
+.btn,
+.form-control,
+.form-select{
+
+    min-height:48px;
+
+}
+
+/* =========================================
+   ADDRESS CARDS
+========================================= */
+
+.address-card{
+    background:#fff;
+    border:2px solid transparent;
+    border-radius:20px;
+    padding:22px;
+    box-shadow:var(--shadow-sm);
+    transition:all .3s ease;
+    position:relative;
+    overflow:hidden;
+    height:100%;
+}
+
+.address-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--primary);
+    box-shadow:var(--shadow-md);
+}
+
+.address-card.default{
+    border-color:var(--primary);
+    background:linear-gradient(180deg,#ffffff,#f6fff9);
+}
+
+/* =========================================
+   CARD HEADER
+========================================= */
+
+.card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.address-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--primary-light);
+    color:var(--primary);
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.address-badge i{
+    font-size:14px;
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.card-actions{
+    display:flex;
+    gap:10px;
+}
+
+.icon-btn{
+    width:44px;
+    height:44px;
+    border:none;
+    border-radius:12px;
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.icon-btn i{
+    font-size:18px;
+}
+
+.icon-btn:hover{
+    background:var(--primary);
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+.icon-btn.delete:hover{
+    background:#dc3545;
+    color:#fff;
+}
+
+.icon-btn.default-btn:hover{
+    background:#ffc107;
+    color:#222;
+}
+
+/* =========================================
+   CARD BODY
+========================================= */
+
+.address-type{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.address-type i{
+    color:var(--primary);
+}
+
+.address-info{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.address-info p{
+    margin:0;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    line-height:1.7;
+    color:#444;
+}
+
+.address-info i{
+    color:var(--primary);
+    min-width:20px;
+    margin-top:3px;
+}
+
+.address-name{
+    font-weight:600;
+    color:#222;
+}
+
+.address-phone{
+    font-weight:500;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-address{
+    text-align:center;
+    padding:70px 20px;
+}
+
+.empty-address i{
+    font-size:70px;
+    color:#cfd4da;
+    margin-bottom:20px;
+}
+
+.empty-address h4{
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.empty-address p{
+    color:var(--text-light);
+    margin-bottom:25px;
+}
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal-content{
+    border:none;
+    border-radius:24px;
+}
+
+.modal-header{
+    border-bottom:1px solid var(--border);
+    padding:24px;
+}
+
+.modal-title{
+    font-weight:700;
+}
+
+.modal-body{
+    padding:24px;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-label{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.form-control,
+.form-select{
+    border-radius:14px;
+    border:1px solid #dfe3e7;
+    padding:14px 16px;
+    font-size:15px;
+    transition:.3s;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 .25rem rgba(25,135,84,.15);
+}
+
+textarea.form-control{
+    min-height:120px;
+    resize:none;
+}
+
+.form-switch{
+    padding-left:3rem;
+}
+
+.form-switch .form-check-input{
+    width:52px;
+    height:28px;
+    cursor:pointer;
+}
+
+.form-check-label{
+    margin-left:8px;
+    cursor:pointer;
+}
+
+/* =========================================
+   SAVE BUTTON
+========================================= */
+
+#addressForm .btn-success{
+    border-radius:14px;
+    font-weight:600;
+    font-size:16px;
+    min-height:52px;
+    transition:.3s;
+}
+
+#addressForm .btn-success:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================================
+   CARD ANIMATION
+========================================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.address-card{
+
+    animation:fadeUp .35s ease;
+
+}
+
+/* =========================================
+   MOBILE OFFCANVAS
+========================================= */
+
+.offcanvas{
+    border-top-right-radius:20px;
+    border-bottom-right-radius:20px;
+}
+
+.profile-user-mobile{
+    background:linear-gradient(135deg,#198754,#157347);
+    color:#fff;
+}
+
+.profile-user-mobile small{
+    color:rgba(255,255,255,.8);
+}
+
+.list-group-item{
+    border:none;
+    padding:16px 22px;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    min-height:52px;
+    transition:.25s;
+}
+
+.list-group-item i{
+    font-size:20px;
+    width:26px;
+}
+
+.list-group-item:hover{
+    background:#f5fff8;
+    color:var(--primary);
+}
+
+.list-group-item.active{
+    background:var(--primary);
+    color:#fff;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer{
+    background:#fff;
+    border-top:1px solid var(--border);
+}
+
+.footer-logo{
+    max-width:170px;
+}
+
+.footer h6{
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.footer ul{
+    padding:0;
+    margin:0;
+}
+
+.footer ul li{
+    list-style:none;
+    margin-bottom:12px;
+}
+
+.footer a{
+    color:#555;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.footer a:hover{
+    color:var(--primary);
+}
+
+.footer p{
+    color:#666;
+    margin-bottom:12px;
+}
+
+.footer .bi{
+    color:var(--primary);
+}
+
+/* =========================================
+   BACK TO TOP
+========================================= */
+
+#backToTop{
+
+    position:fixed;
+
+    right:24px;
+
+    bottom:100px;
+
+    width:52px;
+
+    height:52px;
+
+    border:none;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:var(--shadow-md);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:999;
+
+}
+
+#backToTop.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+#backToTop:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#c8d1cb;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--primary);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width:991px){
+
+.profile-sidebar{
+    display:none;
+}
+
+.address-wrapper{
+    padding:20px;
+    border-radius:18px;
+}
+
+.address-summary{
+    display:block;
+}
+
+.address-summary h3{
+    font-size:22px;
+}
+
+.address-summary span{
+    display:block;
+    margin-top:6px;
+}
+
+.page-title{
+    font-size:24px;
+}
+
+.address-top{
+    padding:14px 0;
+}
+
+}
+
+@media (max-width:768px){
+
+.profile-section{
+    padding:16px 0 90px;
+}
+
+.address-wrapper{
+    padding:16px;
+}
+
+.address-card{
+    padding:18px;
+    border-radius:18px;
+}
+
+.card-top{
+    margin-bottom:16px;
+}
+
+.address-type{
+    font-size:20px;
+}
+
+.address-info p{
+    font-size:14px;
+}
+
+.address-badge{
+    font-size:12px;
+    padding:6px 12px;
+}
+
+.icon-btn{
+    width:44px;
+    height:44px;
+}
+
+.modal-dialog{
+    margin:12px;
+}
+
+.modal-content{
+    border-radius:20px;
+}
+
+.modal-header,
+.modal-body{
+    padding:18px;
+}
+
+.form-control,
+.form-select{
+    font-size:15px;
+}
+
+.add-address-fab{
+    width:60px;
+    height:60px;
+    font-size:24px;
+    right:18px;
+    bottom:18px;
+}
+
+#backToTop{
+    right:18px;
+    bottom:90px;
+}
+
+}
+
+@media (max-width:576px){
+
+.page-title{
+    font-size:22px;
+}
+
+.address-top p{
+    font-size:14px;
+}
+
+.address-summary h3{
+    font-size:20px;
+}
+
+.address-card{
+    padding:16px;
+}
+
+.address-info{
+    gap:10px;
+}
+
+.address-info p{
+    line-height:1.6;
+}
+
+.footer{
+    text-align:center;
+}
+
+.footer .d-flex{
+    justify-content:center;
+}
+
+}
+
+/* =========================================
+   MICRO INTERACTIONS
+========================================= */
+
+.btn,
+.icon-btn,
+.profile-menu a,
+.list-group-item,
+.address-card,
+.form-control,
+.form-select{
+
+    transition:all .25s ease;
+
+}
+
+.btn:active,
+.icon-btn:active{
+
+    transform:scale(.96);
+
+}
+
+.address-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:4px;
+
+    background:linear-gradient(
+        90deg,
+        #198754,
+        #28a745
+    );
+
+    transform:scaleX(0);
+
+    transform-origin:left;
+
+    transition:.3s;
+
+}
+
+.address-card:hover::before{
+
+    transform:scaleX(1);
+
+}
+
+/* =========================================
+   GLASS EFFECT
+========================================= */
+
+.modal-content{
+
+    backdrop-filter:blur(12px);
+
+}
+
+/* =========================================
+   SELECTION
+========================================= */
+
+::selection{
+
+    background:#198754;
+
+    color:#fff;
+
+}

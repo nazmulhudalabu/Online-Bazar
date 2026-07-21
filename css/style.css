@@ -2184,7 +2184,7 @@ justify-content:center;
 
     .navbar > .container > .navbar-toggler{
 
-        display:none;
+        display:block;
 
     }
 
